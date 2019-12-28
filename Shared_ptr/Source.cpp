@@ -1,4 +1,4 @@
-#include "SharedPtr.h"
+п»ї#include "SharedPtr.h"
 #include "counter.h"
 #include <iostream>
 using namespace std;
@@ -8,6 +8,7 @@ int main()
 {
 	cout << "With library " << endl;
 	int* ap = new int(5); 
+	 
 
 	std::shared_ptr<int> sh1(ap);
 	std::shared_ptr<int> sh2(sh1);
@@ -30,8 +31,8 @@ int main()
 	SharedPtr<int> P2(P1);
 	SharedPtr<int> P3(P2);
 	SharedPtr<int> P4(P3);
-	P3.reset(); // Сбросили
-	P4.reset(); // Сбросили подсчет
+	P3.reset(); // РЎР±СЂРѕСЃРёР»Рё
+	P4.reset(); // РЎР±СЂРѕСЃРёР»Рё РїРѕРґСЃС‡РµС‚
 	{
 		SharedPtr<int> P5(P1);
 		cout << P1.use_count() << endl;

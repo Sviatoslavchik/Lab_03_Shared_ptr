@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <atomic>
 #include <iostream>
 #include "counter.h"
@@ -8,8 +8,8 @@ template <typename T>
 
 class SharedPtr 
 {
-	counter* count; // Счетчик на количество обьектов, на который сс-ся количество обьектов
-	T* data; // Какие-то данные шаблона Т
+	counter* count; // РЎС‡РµС‚С‡РёРє РЅР° РєРѕР»РёС‡РµСЃС‚РІРѕ РѕР±СЊРµРєС‚РѕРІ, РЅР° РєРѕС‚РѕСЂС‹Р№ СЃСЃ-СЃСЏ РєРѕР»РёС‡РµСЃС‚РІРѕ РѕР±СЊРµРєС‚РѕРІ
+	T* data; // РљР°РєРёРµ-С‚Рѕ РґР°РЅРЅС‹Рµ С€Р°Р±Р»РѕРЅР° Рў
 public:
 	SharedPtr() 
 	{
@@ -22,14 +22,14 @@ public:
 		this->data = ptr;
 		this->count = new counter(1);
 	}
-	SharedPtr(const SharedPtr& r) // Конструктор копирования
+	SharedPtr(const SharedPtr& r) // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
 	{
 		cout << "Helo1";
 		this->data = r.data;
 		this->count = r.count;
 		count->increase();
 	}
-	SharedPtr(SharedPtr&& r) // Конструктор перемещения
+	SharedPtr(SharedPtr&& r) // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРµСЂРµРјРµС‰РµРЅРёСЏ
 	{
 		cout << "Helo2";
 		this->data = r.data;
@@ -40,18 +40,18 @@ public:
 	}
 	~SharedPtr() 
 	{
-		if (*this) // Если есть еще обьекты ссылки
+		if (*this) // Р•СЃР»Рё РµСЃС‚СЊ РµС‰Рµ РѕР±СЊРµРєС‚С‹ СЃСЃС‹Р»РєРё
 		{
 			count->decrease();
 		}
-		if (!count) // Если нет обьектов
+		if (!count) // Р•СЃР»Рё РЅРµС‚ РѕР±СЊРµРєС‚РѕРІ
 		{
 			cout << "kfkfk";
 			delete data;
 			delete count;
 		}
 	}
-	// Перегрузка оператора =
+	// РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° =
 	auto operator = (const SharedPtr & r)->SharedPtr<T> & 
 	{
 		if (!count) 
@@ -82,12 +82,12 @@ public:
 
 	}
 
-	// Проверяет, указывает ли указатель на объект
+	// РџСЂРѕРІРµСЂСЏРµС‚, СѓРєР°Р·С‹РІР°РµС‚ Р»Рё СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РѕР±СЉРµРєС‚
 	operator bool() const 
 	{
 		return !(data == nullptr);
 	}
-	auto operator*() const->T & // Перегрузка оператора указателя
+	auto operator*() const->T & // РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° СѓРєР°Р·Р°С‚РµР»СЏ
 	{
 		if (!*this) 
 		{
@@ -95,7 +95,7 @@ public:
 		}
 		return *data;
 	}
-	auto operator->() const->T* // Оператор взятия значения
+	auto operator->() const->T* // РћРїРµСЂР°С‚РѕСЂ РІР·СЏС‚РёСЏ Р·РЅР°С‡РµРЅРёСЏ
 	{
 		return data; 
 	}
@@ -103,7 +103,7 @@ public:
 		return data;
 	}
 	void reset() 
-	{ // Сбросить
+	{ // РЎР±СЂРѕСЃРёС‚СЊ
 		if (!*this) return;
 		count->decrease();
 		if (count == nullptr) 
@@ -129,13 +129,13 @@ public:
 		data = ptr;
 	}
 	void swap(SharedPtr& r) 
-	{ // Поменять местами
+	{ // РџРѕРјРµРЅСЏС‚СЊ РјРµСЃС‚Р°РјРё
 		if (data == r.data) return;
 		auto buf = r;
 		r = *this;
 		*this = buf;
 	}
-	// Возвращает количество объектов SharedPtr, которые ссылаются на тот же управляемый объект
+	// Р’РѕР·РІСЂР°С‰Р°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ РѕР±СЉРµРєС‚РѕРІ SharedPtr, РєРѕС‚РѕСЂС‹Рµ СЃСЃС‹Р»Р°СЋС‚СЃСЏ РЅР° С‚РѕС‚ Р¶Рµ СѓРїСЂР°РІР»СЏРµРјС‹Р№ РѕР±СЉРµРєС‚
 	auto use_count() const->size_t 
 	{
 		if (!*this) return 0;

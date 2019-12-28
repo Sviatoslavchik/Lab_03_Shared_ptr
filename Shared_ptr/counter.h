@@ -1,25 +1,25 @@
-#pragma once
+п»ї#pragma once
 #include <atomic>
 #include <iostream>
 using namespace std;
 
 class counter
 {
-	atomic <unsigned int> count; // Для счетчика ссылок используйте переменную класса std::atomic_uint. 
+	atomic <unsigned int> count; // Р”Р»СЏ СЃС‡РµС‚С‡РёРєР° СЃСЃС‹Р»РѕРє РёСЃРїРѕР»СЊР·СѓР№С‚Рµ РїРµСЂРµРјРµРЅРЅСѓСЋ РєР»Р°СЃСЃР° std::atomic_uint. 
 public:
-	counter() // Конструктор для инициализации
+	counter() // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РґР»СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
 	{
 		this->count = 1;
 	}
-	explicit counter(unsigned int c) // Конструктор для класса счетчика
+	explicit counter(unsigned int c) // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РґР»СЏ РєР»Р°СЃСЃР° СЃС‡РµС‚С‡РёРєР°
 	{
 		this->count = c;
 	}
-	~counter() = default; // Деструктор
+	~counter() = default; // Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 	void increase() { count++; }
 	void decrease() { count--; }
 	int get() const 
 	{
-		return static_cast <int> (count); // Привести к типу int
+		return static_cast <int> (count); // РџСЂРёРІРµСЃС‚Рё Рє С‚РёРїСѓ int
 	}
 };
